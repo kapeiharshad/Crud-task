@@ -90,5 +90,14 @@ module.exports = {
         callback(null, deletedData);
       }
     });
+  },
+  deleteOneUser: (reqParam, callback) => {
+    user.deleteOne({ userId: reqParam.userId }).exec((err, deletedData) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, deletedData);
+      }
+    });
   }
 };
