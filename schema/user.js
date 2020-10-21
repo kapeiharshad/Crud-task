@@ -7,7 +7,8 @@ const userSchema = new Schema({
   userId: {
     type: Number,
     required: true,
-    unique: true
+    unique: true,
+    immutable: true
   },
   age: {
     type: Number
