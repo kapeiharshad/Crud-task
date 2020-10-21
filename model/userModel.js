@@ -61,5 +61,16 @@ module.exports = {
         callback(null, foundedData);
       }
     });
+  },
+  updateAllUser: (reqData, callback) => {
+    user.updateMany({}, reqData).exec((err, foundedData) => {
+      if (err) {
+        callback(err, null);
+      } else if (!foundedData) {
+        callback(null, "No data found");
+      } else {
+        callback(null, foundedData);
+      }
+    });
   }
 };
