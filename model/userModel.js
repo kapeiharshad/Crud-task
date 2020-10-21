@@ -39,5 +39,16 @@ module.exports = {
         }
       }
     );
+  },
+  getAllUser: (callback) => {
+    user.find({}).exec((err, foundedData) => {
+      if (err) {
+        callback(err, null);
+      } else if (!foundedData) {
+        callback(null, "No data found");
+      } else {
+        callback(null, foundedData);
+      }
+    });
   }
 };
