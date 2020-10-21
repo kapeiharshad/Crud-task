@@ -81,5 +81,14 @@ module.exports = {
           callback(null, updatedData);
         }
       });
+  },
+  deleteAllUser: (callback) => {
+    user.deleteMany({}).exec((err, deletedData) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, deletedData);
+      }
+    });
   }
 };
