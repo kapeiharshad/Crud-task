@@ -41,4 +41,14 @@ router.put("/", (req, res) => {
     }
   });
 });
+
+router.put("/:userId", (req, res) => {
+  userModel.updateOneUser(req.params, req.body, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
 module.exports = router;

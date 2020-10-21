@@ -63,14 +63,23 @@ module.exports = {
     });
   },
   updateAllUser: (reqData, callback) => {
-    user.updateMany({}, reqData).exec((err, foundedData) => {
+    user.updateMany({}, reqData).exec((err, updatedData) => {
       if (err) {
         callback(err, null);
-      } else if (!foundedData) {
-        callback(null, "No data found");
       } else {
-        callback(null, foundedData);
+        callback(null, updatedData);
       }
     });
+  },
+  updateOneUser: (reqParam, reqData, callback) => {
+    user
+      .updateOne({ userId: reqParam.userId }, reqData)
+      .exec((err, updatedData) => {
+        if (err) {
+          callback(err, null);
+        } else {
+          callback(null, updatedData);
+        }
+      });
   }
 };
