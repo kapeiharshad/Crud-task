@@ -21,4 +21,14 @@ router.get("/", (req, res) => {
     }
   });
 });
+
+router.get("/:userId", (req, res) => {
+  userModel.getOneUser(req.params, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
 module.exports = router;

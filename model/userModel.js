@@ -44,6 +44,17 @@ module.exports = {
     user.find({}).exec((err, foundedData) => {
       if (err) {
         callback(err, null);
+      } else if (foundedData.length == 0) {
+        callback(null, "No data found");
+      } else {
+        callback(null, foundedData);
+      }
+    });
+  },
+  getOneUser: (reqData, callback) => {
+    user.findOne({ userId: reqData.userId }).exec((err, foundedData) => {
+      if (err) {
+        callback(err, null);
       } else if (!foundedData) {
         callback(null, "No data found");
       } else {
