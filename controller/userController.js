@@ -71,4 +71,14 @@ router.delete("/:userId", (req, res) => {
     }
   });
 });
+
+router.get("/lookupApi/:userId", (req, res) => {
+  userModel.lookupApi(req.params, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
 module.exports = router;

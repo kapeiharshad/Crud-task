@@ -7,15 +7,15 @@ module.exports = {
       [
         function (callback) {
           user
-            .findOne({}, { userId: 1 })
-            .sort({ _id: -1 })
+            .findOne({}, {userId: 1})
+            .sort({_id: -1})
             .exec((err, foundedData) => {
               if (err) {
                 callback(err, null);
               } else if (!foundedData) {
-                callback(null, { userId: 1 });
+                callback(null, {userId: 1});
               } else {
-                callback(null, { userId: foundedData.userId + 1 });
+                callback(null, {userId: foundedData.userId + 1});
               }
             });
         },
@@ -52,7 +52,7 @@ module.exports = {
     });
   },
   getOneUser: (reqData, callback) => {
-    user.findOne({ userId: reqData.userId }).exec((err, foundedData) => {
+    user.findOne({userId: reqData.userId}).exec((err, foundedData) => {
       if (err) {
         callback(err, null);
       } else if (!foundedData) {
@@ -73,7 +73,7 @@ module.exports = {
   },
   updateOneUser: (reqParam, reqData, callback) => {
     user
-      .updateOne({ userId: reqParam.userId }, reqData)
+      .updateOne({userId: reqParam.userId}, reqData)
       .exec((err, updatedData) => {
         if (err) {
           callback(err, null);
@@ -92,12 +92,42 @@ module.exports = {
     });
   },
   deleteOneUser: (reqParam, callback) => {
-    user.deleteOne({ userId: reqParam.userId }).exec((err, deletedData) => {
+    user.deleteOne({userId: reqParam.userId}).exec((err, deletedData) => {
       if (err) {
         callback(err, null);
       } else {
         callback(null, deletedData);
       }
     });
+  },
+  lookupApi: (reqParam, callback) => {
+    user
+      .aggregate([
+        {
+          $match: {
+            userId: parseInt(reqParam.userId)
+          }
+        },
+        {
+          $lookup: {
+            from: "addresses",
+            localField: "address",
+            foreignField: "_id",
+            as: "address"
+          }
+        },
+        {
+          $unwind: "$address"
+        }
+      ])
+      .exec((err, finalData) => {
+        if (err) {
+          callback(err, null);
+        } else if (finalData.length == 0) {
+          callback(null, "No data found");
+        } else {
+          callback(err, finalData);
+        }
+      });
   }
 };
