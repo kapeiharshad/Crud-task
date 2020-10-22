@@ -16,7 +16,7 @@ module.exports = {
               .exec((err, foundedData) => {
                 if (err) {
                   callback(err, null);
-                } else if (!foundedData) {
+                } else if (isEmpty(foundedData)) {
                   callback(null, { userId: 1 });
                 } else {
                   callback(null, { userId: foundedData.userId + 1 });
@@ -49,7 +49,7 @@ module.exports = {
     user.find({}).exec((err, foundedData) => {
       if (err) {
         callback(err, null);
-      } else if (foundedData.length == 0) {
+      } else if (isEmpty(foundedData)) {
         callback(null, "No data found");
       } else {
         callback(null, foundedData);
@@ -63,7 +63,7 @@ module.exports = {
       user.findOne({ userId: reqData.userId }).exec((err, foundedData) => {
         if (err) {
           callback(err, null);
-        } else if (!foundedData) {
+        } else if (isEmpty(foundedData)) {
           callback(null, "No data found");
         } else {
           callback(null, foundedData);
@@ -147,7 +147,7 @@ module.exports = {
         .exec((err, finalData) => {
           if (err) {
             callback(err, null);
-          } else if (finalData.length == 0) {
+          } else if (isEmpty(finalData)) {
             callback(null, "No data found");
           } else {
             callback(err, finalData);
