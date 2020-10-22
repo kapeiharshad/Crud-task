@@ -13,9 +13,9 @@ const userSchema = new Schema({
   age: {
     type: Number
   },
-  email: {
-    type: String,
-    unique: true
+  address: {
+    type: Schema.Types.ObjectId,
+    ref: "address"
   }
 });
 module.exports = mongoose.model("user", userSchema);
