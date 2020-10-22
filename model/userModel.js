@@ -3,6 +3,7 @@ const waterfall = require("async/waterfall");
 const isEmpty = require("lodash.isempty");
 
 module.exports = {
+  // User save API with unique increment identifier
   saveUser: (reqData, callback) => {
     if (isEmpty(reqData)) {
       callback("Please provide proper request data", null);
@@ -45,6 +46,8 @@ module.exports = {
       );
     }
   },
+
+  // get all user api
   getAllUser: (callback) => {
     user.find({}).exec((err, foundedData) => {
       if (err) {
@@ -56,6 +59,8 @@ module.exports = {
       }
     });
   },
+
+  // get one user api
   getOneUser: (reqData, callback) => {
     if (isEmpty(reqData)) {
       callback("Please provide proper request data", null);
@@ -71,6 +76,8 @@ module.exports = {
       });
     }
   },
+
+  // update all user api
   updateAllUser: (reqData, callback) => {
     if (isEmpty(reqData)) {
       callback("Please provide proper request data", null);
@@ -84,6 +91,8 @@ module.exports = {
       });
     }
   },
+
+  // update one user api
   updateOneUser: (reqParam, reqData, callback) => {
     if (isEmpty(reqParam) && isEmpty(reqData)) {
       callback("Please provide proper request data", null);
@@ -99,6 +108,8 @@ module.exports = {
         });
     }
   },
+
+  // delete all user api
   deleteAllUser: (callback) => {
     user.deleteMany({}).exec((err, deletedData) => {
       if (err) {
@@ -108,6 +119,8 @@ module.exports = {
       }
     });
   },
+
+  // delete one user api
   deleteOneUser: (reqParam, callback) => {
     if (isEmpty(reqParam)) {
       callback("Please provide proper request data", null);
@@ -121,6 +134,8 @@ module.exports = {
       });
     }
   },
+
+  // get one user by using lookup
   lookupApi: (reqParam, callback) => {
     if (isEmpty(reqParam)) {
       callback("Please provide proper request data", null);
